@@ -52,6 +52,7 @@ namespace ReadPressure_Demo2._0
             this.reCom_btn = new System.Windows.Forms.Button();
             this.Gun_label = new System.Windows.Forms.Label();
             this.DateTime_Timer = new System.Windows.Forms.Timer(this.components);
+            this.View_btn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@ namespace ReadPressure_Demo2._0
             // Trigger_Timer
             // 
             this.Trigger_Timer.Interval = 200;
-            this.Trigger_Timer.Tick += new System.EventHandler(this.Trigger_Timer_Tick_1);
+            this.Trigger_Timer.Tick += new System.EventHandler(this.Trigger_Timer_Tick);
             // 
             // GunP_label
             // 
@@ -84,9 +85,9 @@ namespace ReadPressure_Demo2._0
             this.send_btn.Name = "send_btn";
             this.send_btn.Size = new System.Drawing.Size(75, 23);
             this.send_btn.TabIndex = 2;
-            this.send_btn.Text = "Send";
+            this.send_btn.Text = "Start";
             this.send_btn.UseVisualStyleBackColor = true;
-            this.send_btn.Click += new System.EventHandler(this.send_btn_Click_1);
+            this.send_btn.Click += new System.EventHandler(this.send_btn_Click);
             // 
             // stop_btn
             // 
@@ -96,7 +97,7 @@ namespace ReadPressure_Demo2._0
             this.stop_btn.TabIndex = 3;
             this.stop_btn.Text = "Stop";
             this.stop_btn.UseVisualStyleBackColor = true;
-            this.stop_btn.Click += new System.EventHandler(this.stop_btn_Click_1);
+            this.stop_btn.Click += new System.EventHandler(this.stop_btn_Click);
             // 
             // port_label
             // 
@@ -124,6 +125,7 @@ namespace ReadPressure_Demo2._0
             // groupBox1
             // 
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox1.Controls.Add(this.View_btn);
             this.groupBox1.Controls.Add(this.DipoleP_label);
             this.groupBox1.Controls.Add(this.LinacP_label);
             this.groupBox1.Controls.Add(this.Dipole_label);
@@ -189,9 +191,9 @@ namespace ReadPressure_Demo2._0
             // 
             this.Logging_btn.Location = new System.Drawing.Point(27, 313);
             this.Logging_btn.Name = "Logging_btn";
-            this.Logging_btn.Size = new System.Drawing.Size(75, 31);
+            this.Logging_btn.Size = new System.Drawing.Size(134, 31);
             this.Logging_btn.TabIndex = 7;
-            this.Logging_btn.Text = "Logging";
+            this.Logging_btn.Text = "Start Logging";
             this.Logging_btn.UseVisualStyleBackColor = true;
             this.Logging_btn.Click += new System.EventHandler(this.logging_btn_Click);
             // 
@@ -256,6 +258,15 @@ namespace ReadPressure_Demo2._0
             // 
             this.DateTime_Timer.Tick += new System.EventHandler(this.DateTime_Timer_Tick);
             // 
+            // View_btn
+            // 
+            this.View_btn.Location = new System.Drawing.Point(186, 321);
+            this.View_btn.Name = "View_btn";
+            this.View_btn.Size = new System.Drawing.Size(75, 23);
+            this.View_btn.TabIndex = 15;
+            this.View_btn.Text = "Live";
+            this.View_btn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -297,6 +308,7 @@ namespace ReadPressure_Demo2._0
         private System.Windows.Forms.Label Linac_label;
         private System.Windows.Forms.Label DipoleP_label;
         private System.Windows.Forms.Label LinacP_label;
+        private System.Windows.Forms.Button View_btn;
     }
 }
 
