@@ -72,7 +72,7 @@ namespace ReadPressure_Demo2._0
             this.ComPort_cbx.Location = new System.Drawing.Point(101, 110);
             this.ComPort_cbx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ComPort_cbx.Name = "ComPort_cbx";
-            this.ComPort_cbx.Size = new System.Drawing.Size(92, 21);
+            this.ComPort_cbx.Size = new System.Drawing.Size(121, 24);
             this.ComPort_cbx.TabIndex = 0;
             // 
             // Trigger_Timer
@@ -83,10 +83,9 @@ namespace ReadPressure_Demo2._0
             // GunP_label
             // 
             this.GunP_label.AutoSize = true;
-            this.GunP_label.Location = new System.Drawing.Point(16, 183);
-            this.GunP_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.GunP_label.Location = new System.Drawing.Point(37, 185);
             this.GunP_label.Name = "GunP_label";
-            this.GunP_label.Size = new System.Drawing.Size(28, 13);
+            this.GunP_label.Size = new System.Drawing.Size(31, 16);
             this.GunP_label.TabIndex = 1;
             this.GunP_label.Text = "0.00";
             this.GunP_label.UseMnemonic = false;
@@ -96,7 +95,7 @@ namespace ReadPressure_Demo2._0
             this.send_btn.Location = new System.Drawing.Point(71, 249);
             this.send_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.send_btn.Name = "send_btn";
-            this.send_btn.Size = new System.Drawing.Size(56, 19);
+            this.send_btn.Size = new System.Drawing.Size(75, 23);
             this.send_btn.TabIndex = 2;
             this.send_btn.Text = "Start";
             this.send_btn.UseVisualStyleBackColor = true;
@@ -107,7 +106,7 @@ namespace ReadPressure_Demo2._0
             this.stop_btn.Location = new System.Drawing.Point(187, 249);
             this.stop_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stop_btn.Name = "stop_btn";
-            this.stop_btn.Size = new System.Drawing.Size(56, 19);
+            this.stop_btn.Size = new System.Drawing.Size(75, 23);
             this.stop_btn.TabIndex = 3;
             this.stop_btn.Text = "Stop";
             this.stop_btn.UseVisualStyleBackColor = true;
@@ -116,10 +115,9 @@ namespace ReadPressure_Demo2._0
             // port_label
             // 
             this.port_label.AutoSize = true;
-            this.port_label.Location = new System.Drawing.Point(18, 95);
-            this.port_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.port_label.Location = new System.Drawing.Point(24, 117);
             this.port_label.Name = "port_label";
-            this.port_label.Size = new System.Drawing.Size(50, 13);
+            this.port_label.Size = new System.Drawing.Size(62, 16);
             this.port_label.TabIndex = 4;
             this.port_label.Text = "ComPort:";
             // 
@@ -287,10 +285,9 @@ namespace ReadPressure_Demo2._0
             // DipoleP_label
             // 
             this.DipoleP_label.AutoSize = true;
-            this.DipoleP_label.Location = new System.Drawing.Point(186, 183);
-            this.DipoleP_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.DipoleP_label.Location = new System.Drawing.Point(264, 185);
             this.DipoleP_label.Name = "DipoleP_label";
-            this.DipoleP_label.Size = new System.Drawing.Size(28, 13);
+            this.DipoleP_label.Size = new System.Drawing.Size(31, 16);
             this.DipoleP_label.TabIndex = 14;
             this.DipoleP_label.Text = "0.00";
             this.DipoleP_label.UseMnemonic = false;
@@ -300,7 +297,7 @@ namespace ReadPressure_Demo2._0
             this.LinacP_label.AutoSize = true;
             this.LinacP_label.Location = new System.Drawing.Point(131, 225);
             this.LinacP_label.Name = "LinacP_label";
-            this.LinacP_label.Size = new System.Drawing.Size(28, 13);
+            this.LinacP_label.Size = new System.Drawing.Size(31, 16);
             this.LinacP_label.TabIndex = 13;
             this.LinacP_label.Text = "0.00";
             this.LinacP_label.UseMnemonic = false;
@@ -308,20 +305,18 @@ namespace ReadPressure_Demo2._0
             // Dipole_label
             // 
             this.Dipole_label.AutoSize = true;
-            this.Dipole_label.Location = new System.Drawing.Point(182, 161);
-            this.Dipole_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Dipole_label.Location = new System.Drawing.Point(259, 158);
             this.Dipole_label.Name = "Dipole_label";
-            this.Dipole_label.Size = new System.Drawing.Size(71, 13);
+            this.Dipole_label.Size = new System.Drawing.Size(89, 16);
             this.Dipole_label.TabIndex = 12;
             this.Dipole_label.Text = "Dipole: [Torr.]";
             // 
             // Linac_label
             // 
             this.Linac_label.AutoSize = true;
-            this.Linac_label.Location = new System.Drawing.Point(95, 161);
-            this.Linac_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Linac_label.Location = new System.Drawing.Point(143, 158);
             this.Linac_label.Name = "Linac_label";
-            this.Linac_label.Size = new System.Drawing.Size(67, 13);
+            this.Linac_label.Size = new System.Drawing.Size(81, 16);
             this.Linac_label.TabIndex = 11;
             this.Linac_label.Text = "Linac: [Torr.]";
             // 
@@ -340,20 +335,18 @@ namespace ReadPressure_Demo2._0
             // 
             this.Time_label.AutoSize = true;
             this.Time_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.Time_label.Location = new System.Drawing.Point(71, 45);
-            this.Time_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Time_label.Location = new System.Drawing.Point(95, 55);
             this.Time_label.Name = "Time_label";
-            this.Time_label.Size = new System.Drawing.Size(74, 26);
+            this.Time_label.Size = new System.Drawing.Size(92, 32);
             this.Time_label.TabIndex = 10;
             this.Time_label.Text = "--:--:--";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 55);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(24, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
+            this.label3.Size = new System.Drawing.Size(41, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Time:";
             // 
@@ -363,17 +356,16 @@ namespace ReadPressure_Demo2._0
             this.Date_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.Date_label.Location = new System.Drawing.Point(95, 18);
             this.Date_label.Name = "Date_label";
-            this.Date_label.Size = new System.Drawing.Size(90, 26);
+            this.Date_label.Size = new System.Drawing.Size(110, 32);
             this.Date_label.TabIndex = 8;
             this.Date_label.Text = "-- -- ----";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 26);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(24, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.Size = new System.Drawing.Size(39, 16);
             this.label1.TabIndex = 7;
             this.label1.Text = "Date:";
             // 
@@ -391,10 +383,9 @@ namespace ReadPressure_Demo2._0
             // Gun_label
             // 
             this.Gun_label.AutoSize = true;
-            this.Gun_label.Location = new System.Drawing.Point(15, 161);
-            this.Gun_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Gun_label.Location = new System.Drawing.Point(36, 158);
             this.Gun_label.Name = "Gun_label";
-            this.Gun_label.Size = new System.Drawing.Size(78, 13);
+            this.Gun_label.Size = new System.Drawing.Size(94, 16);
             this.Gun_label.TabIndex = 5;
             this.Gun_label.Text = "RF Gun: [Torr.]";
             // 
@@ -405,7 +396,7 @@ namespace ReadPressure_Demo2._0
             // Form1
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1259, 551);
