@@ -40,6 +40,17 @@ namespace ReadPressure_Demo2._0
             this.port_label = new System.Windows.Forms.Label();
             this.PressurePlot = new OxyPlot.WindowsForms.PlotView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.SetLim_btn = new System.Windows.Forms.Button();
+            this.DipLim_txb = new System.Windows.Forms.TextBox();
+            this.LinLim_txb = new System.Windows.Forms.TextBox();
+            this.GunLim_txb = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.View_btn = new System.Windows.Forms.Button();
             this.DipoleP_label = new System.Windows.Forms.Label();
             this.LinacP_label = new System.Windows.Forms.Label();
             this.Dipole_label = new System.Windows.Forms.Label();
@@ -52,16 +63,16 @@ namespace ReadPressure_Demo2._0
             this.reCom_btn = new System.Windows.Forms.Button();
             this.Gun_label = new System.Windows.Forms.Label();
             this.DateTime_Timer = new System.Windows.Forms.Timer(this.components);
-            this.View_btn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ComPort_cbx
             // 
             this.ComPort_cbx.FormattingEnabled = true;
-            this.ComPort_cbx.Location = new System.Drawing.Point(101, 109);
+            this.ComPort_cbx.Location = new System.Drawing.Point(76, 89);
+            this.ComPort_cbx.Margin = new System.Windows.Forms.Padding(2);
             this.ComPort_cbx.Name = "ComPort_cbx";
-            this.ComPort_cbx.Size = new System.Drawing.Size(121, 24);
+            this.ComPort_cbx.Size = new System.Drawing.Size(92, 21);
             this.ComPort_cbx.TabIndex = 0;
             // 
             // Trigger_Timer
@@ -72,18 +83,20 @@ namespace ReadPressure_Demo2._0
             // GunP_label
             // 
             this.GunP_label.AutoSize = true;
-            this.GunP_label.Location = new System.Drawing.Point(21, 225);
+            this.GunP_label.Location = new System.Drawing.Point(16, 183);
+            this.GunP_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.GunP_label.Name = "GunP_label";
-            this.GunP_label.Size = new System.Drawing.Size(31, 16);
+            this.GunP_label.Size = new System.Drawing.Size(28, 13);
             this.GunP_label.TabIndex = 1;
             this.GunP_label.Text = "0.00";
             this.GunP_label.UseMnemonic = false;
             // 
             // send_btn
             // 
-            this.send_btn.Location = new System.Drawing.Point(71, 249);
+            this.send_btn.Location = new System.Drawing.Point(53, 202);
+            this.send_btn.Margin = new System.Windows.Forms.Padding(2);
             this.send_btn.Name = "send_btn";
-            this.send_btn.Size = new System.Drawing.Size(75, 23);
+            this.send_btn.Size = new System.Drawing.Size(56, 19);
             this.send_btn.TabIndex = 2;
             this.send_btn.Text = "Start";
             this.send_btn.UseVisualStyleBackColor = true;
@@ -91,9 +104,10 @@ namespace ReadPressure_Demo2._0
             // 
             // stop_btn
             // 
-            this.stop_btn.Location = new System.Drawing.Point(186, 249);
+            this.stop_btn.Location = new System.Drawing.Point(140, 202);
+            this.stop_btn.Margin = new System.Windows.Forms.Padding(2);
             this.stop_btn.Name = "stop_btn";
-            this.stop_btn.Size = new System.Drawing.Size(75, 23);
+            this.stop_btn.Size = new System.Drawing.Size(56, 19);
             this.stop_btn.TabIndex = 3;
             this.stop_btn.Text = "Stop";
             this.stop_btn.UseVisualStyleBackColor = true;
@@ -102,9 +116,10 @@ namespace ReadPressure_Demo2._0
             // port_label
             // 
             this.port_label.AutoSize = true;
-            this.port_label.Location = new System.Drawing.Point(24, 117);
+            this.port_label.Location = new System.Drawing.Point(18, 95);
+            this.port_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.port_label.Name = "port_label";
-            this.port_label.Size = new System.Drawing.Size(62, 16);
+            this.port_label.Size = new System.Drawing.Size(50, 13);
             this.port_label.TabIndex = 4;
             this.port_label.Text = "ComPort:";
             // 
@@ -112,10 +127,11 @@ namespace ReadPressure_Demo2._0
             // 
             this.PressurePlot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.PressurePlot.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PressurePlot.Location = new System.Drawing.Point(368, 0);
+            this.PressurePlot.Location = new System.Drawing.Point(276, 0);
+            this.PressurePlot.Margin = new System.Windows.Forms.Padding(2);
             this.PressurePlot.Name = "PressurePlot";
             this.PressurePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.PressurePlot.Size = new System.Drawing.Size(1032, 551);
+            this.PressurePlot.Size = new System.Drawing.Size(774, 448);
             this.PressurePlot.TabIndex = 5;
             this.PressurePlot.Text = "plotView1";
             this.PressurePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -125,6 +141,16 @@ namespace ReadPressure_Demo2._0
             // groupBox1
             // 
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.SetLim_btn);
+            this.groupBox1.Controls.Add(this.DipLim_txb);
+            this.groupBox1.Controls.Add(this.LinLim_txb);
+            this.groupBox1.Controls.Add(this.GunLim_txb);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.View_btn);
             this.groupBox1.Controls.Add(this.DipoleP_label);
             this.groupBox1.Controls.Add(this.LinacP_label);
@@ -142,19 +168,119 @@ namespace ReadPressure_Demo2._0
             this.groupBox1.Controls.Add(this.stop_btn);
             this.groupBox1.Controls.Add(this.GunP_label);
             this.groupBox1.Controls.Add(this.send_btn);
-            this.groupBox1.Location = new System.Drawing.Point(12, 23);
+            this.groupBox1.Location = new System.Drawing.Point(9, 19);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(350, 415);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(262, 418);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Control Box";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(168, 389);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.TabIndex = 25;
+            this.label8.Text = "Torr.";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(169, 348);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "Torr.";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(169, 308);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Torr.";
+            // 
+            // SetLim_btn
+            // 
+            this.SetLim_btn.Location = new System.Drawing.Point(203, 319);
+            this.SetLim_btn.Name = "SetLim_btn";
+            this.SetLim_btn.Size = new System.Drawing.Size(50, 70);
+            this.SetLim_btn.TabIndex = 22;
+            this.SetLim_btn.Text = "Set";
+            this.SetLim_btn.UseVisualStyleBackColor = true;
+            // 
+            // DipLim_txb
+            // 
+            this.DipLim_txb.Location = new System.Drawing.Point(91, 382);
+            this.DipLim_txb.Name = "DipLim_txb";
+            this.DipLim_txb.Size = new System.Drawing.Size(70, 20);
+            this.DipLim_txb.TabIndex = 21;
+            this.DipLim_txb.Text = "1e-6";
+            // 
+            // LinLim_txb
+            // 
+            this.LinLim_txb.Location = new System.Drawing.Point(91, 341);
+            this.LinLim_txb.Name = "LinLim_txb";
+            this.LinLim_txb.Size = new System.Drawing.Size(71, 20);
+            this.LinLim_txb.TabIndex = 20;
+            this.LinLim_txb.Text = "1e-6";
+            // 
+            // GunLim_txb
+            // 
+            this.GunLim_txb.Location = new System.Drawing.Point(91, 301);
+            this.GunLim_txb.Name = "GunLim_txb";
+            this.GunLim_txb.Size = new System.Drawing.Size(71, 20);
+            this.GunLim_txb.TabIndex = 19;
+            this.GunLim_txb.Text = "1e-8";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(21, 385);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Dipole Limit:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(21, 348);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Linac Limit:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(27, 304);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Gun Limit:";
+            // 
+            // View_btn
+            // 
+            this.View_btn.Location = new System.Drawing.Point(140, 261);
+            this.View_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.View_btn.Name = "View_btn";
+            this.View_btn.Size = new System.Drawing.Size(56, 19);
+            this.View_btn.TabIndex = 15;
+            this.View_btn.Text = "Live";
+            this.View_btn.UseVisualStyleBackColor = true;
+            // 
             // DipoleP_label
             // 
             this.DipoleP_label.AutoSize = true;
-            this.DipoleP_label.Location = new System.Drawing.Point(248, 225);
+            this.DipoleP_label.Location = new System.Drawing.Point(186, 183);
+            this.DipoleP_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DipoleP_label.Name = "DipoleP_label";
-            this.DipoleP_label.Size = new System.Drawing.Size(31, 16);
+            this.DipoleP_label.Size = new System.Drawing.Size(28, 13);
             this.DipoleP_label.TabIndex = 14;
             this.DipoleP_label.Text = "0.00";
             this.DipoleP_label.UseMnemonic = false;
@@ -162,9 +288,10 @@ namespace ReadPressure_Demo2._0
             // LinacP_label
             // 
             this.LinacP_label.AutoSize = true;
-            this.LinacP_label.Location = new System.Drawing.Point(130, 225);
+            this.LinacP_label.Location = new System.Drawing.Point(98, 183);
+            this.LinacP_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LinacP_label.Name = "LinacP_label";
-            this.LinacP_label.Size = new System.Drawing.Size(31, 16);
+            this.LinacP_label.Size = new System.Drawing.Size(28, 13);
             this.LinacP_label.TabIndex = 13;
             this.LinacP_label.Text = "0.00";
             this.LinacP_label.UseMnemonic = false;
@@ -172,26 +299,29 @@ namespace ReadPressure_Demo2._0
             // Dipole_label
             // 
             this.Dipole_label.AutoSize = true;
-            this.Dipole_label.Location = new System.Drawing.Point(243, 198);
+            this.Dipole_label.Location = new System.Drawing.Point(182, 161);
+            this.Dipole_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Dipole_label.Name = "Dipole_label";
-            this.Dipole_label.Size = new System.Drawing.Size(89, 16);
+            this.Dipole_label.Size = new System.Drawing.Size(71, 13);
             this.Dipole_label.TabIndex = 12;
             this.Dipole_label.Text = "Dipole: [Torr.]";
             // 
             // Linac_label
             // 
             this.Linac_label.AutoSize = true;
-            this.Linac_label.Location = new System.Drawing.Point(127, 198);
+            this.Linac_label.Location = new System.Drawing.Point(95, 161);
+            this.Linac_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Linac_label.Name = "Linac_label";
-            this.Linac_label.Size = new System.Drawing.Size(81, 16);
+            this.Linac_label.Size = new System.Drawing.Size(67, 13);
             this.Linac_label.TabIndex = 11;
             this.Linac_label.Text = "Linac: [Torr.]";
             // 
             // Logging_btn
             // 
-            this.Logging_btn.Location = new System.Drawing.Point(27, 313);
+            this.Logging_btn.Location = new System.Drawing.Point(20, 254);
+            this.Logging_btn.Margin = new System.Windows.Forms.Padding(2);
             this.Logging_btn.Name = "Logging_btn";
-            this.Logging_btn.Size = new System.Drawing.Size(134, 31);
+            this.Logging_btn.Size = new System.Drawing.Size(100, 25);
             this.Logging_btn.TabIndex = 7;
             this.Logging_btn.Text = "Start Logging";
             this.Logging_btn.UseVisualStyleBackColor = true;
@@ -201,18 +331,20 @@ namespace ReadPressure_Demo2._0
             // 
             this.Time_label.AutoSize = true;
             this.Time_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.Time_label.Location = new System.Drawing.Point(95, 55);
+            this.Time_label.Location = new System.Drawing.Point(71, 45);
+            this.Time_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Time_label.Name = "Time_label";
-            this.Time_label.Size = new System.Drawing.Size(92, 32);
+            this.Time_label.Size = new System.Drawing.Size(74, 26);
             this.Time_label.TabIndex = 10;
             this.Time_label.Text = "--:--:--";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 68);
+            this.label3.Location = new System.Drawing.Point(18, 55);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 16);
+            this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Time:";
             // 
@@ -220,26 +352,29 @@ namespace ReadPressure_Demo2._0
             // 
             this.Date_label.AutoSize = true;
             this.Date_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.Date_label.Location = new System.Drawing.Point(95, 19);
+            this.Date_label.Location = new System.Drawing.Point(71, 15);
+            this.Date_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Date_label.Name = "Date_label";
-            this.Date_label.Size = new System.Drawing.Size(110, 32);
+            this.Date_label.Size = new System.Drawing.Size(90, 26);
             this.Date_label.TabIndex = 8;
             this.Date_label.Text = "-- -- ----";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 32);
+            this.label1.Location = new System.Drawing.Point(18, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 16);
+            this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Date:";
             // 
             // reCom_btn
             // 
-            this.reCom_btn.Location = new System.Drawing.Point(110, 150);
+            this.reCom_btn.Location = new System.Drawing.Point(82, 122);
+            this.reCom_btn.Margin = new System.Windows.Forms.Padding(2);
             this.reCom_btn.Name = "reCom_btn";
-            this.reCom_btn.Size = new System.Drawing.Size(106, 30);
+            this.reCom_btn.Size = new System.Drawing.Size(80, 24);
             this.reCom_btn.TabIndex = 6;
             this.reCom_btn.Text = "Refresh Port";
             this.reCom_btn.UseVisualStyleBackColor = true;
@@ -248,9 +383,10 @@ namespace ReadPressure_Demo2._0
             // Gun_label
             // 
             this.Gun_label.AutoSize = true;
-            this.Gun_label.Location = new System.Drawing.Point(20, 198);
+            this.Gun_label.Location = new System.Drawing.Point(15, 161);
+            this.Gun_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Gun_label.Name = "Gun_label";
-            this.Gun_label.Size = new System.Drawing.Size(94, 16);
+            this.Gun_label.Size = new System.Drawing.Size(78, 13);
             this.Gun_label.TabIndex = 5;
             this.Gun_label.Text = "RF Gun: [Torr.]";
             // 
@@ -258,26 +394,18 @@ namespace ReadPressure_Demo2._0
             // 
             this.DateTime_Timer.Tick += new System.EventHandler(this.DateTime_Timer_Tick);
             // 
-            // View_btn
-            // 
-            this.View_btn.Location = new System.Drawing.Point(186, 321);
-            this.View_btn.Name = "View_btn";
-            this.View_btn.Size = new System.Drawing.Size(75, 23);
-            this.View_btn.TabIndex = 15;
-            this.View_btn.Text = "Live";
-            this.View_btn.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1400, 551);
+            this.ClientSize = new System.Drawing.Size(1050, 448);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.PressurePlot);
             this.ForeColor = System.Drawing.SystemColors.Desktop;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Vacuum Pressure Logger";
             this.groupBox1.ResumeLayout(false);
@@ -309,6 +437,16 @@ namespace ReadPressure_Demo2._0
         private System.Windows.Forms.Label DipoleP_label;
         private System.Windows.Forms.Label LinacP_label;
         private System.Windows.Forms.Button View_btn;
+        private System.Windows.Forms.TextBox DipLim_txb;
+        private System.Windows.Forms.TextBox LinLim_txb;
+        private System.Windows.Forms.TextBox GunLim_txb;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button SetLim_btn;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 

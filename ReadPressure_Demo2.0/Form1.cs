@@ -8,9 +8,10 @@ using OxyPlot.Series;
 using OxyPlot.WindowsForms;
 using OxyPlot.Legends;
 using OxyPlot.Axes;
+using OxyPlot.Annotations;
 using System.Threading.Tasks;
 using System.Globalization;
-using System.Drawing; // Required for changing Button Colors
+using System.Drawing;
 
 // Ensure this matches your namespace
 using TICMonitorApp;
@@ -19,24 +20,31 @@ namespace ReadPressure_Demo2._0
 {
     public partial class Form1 : Form
     {
-        // 1. The Serial Helper
+        // 1. Serial & Plot Variables
         private TICSerialHelper ticHelper;
-
-        // 2. Plotting Variables
         private PlotModel plotModel;
-        private LineSeries seriesGun;    // Blue
-        private LineSeries seriesLinac;  // Red
-        private LineSeries seriesDipole; // Green
+        private LineSeries seriesGun, seriesLinac, seriesDipole;
 
-        // --- SETTINGS ---
-        private const double HISTORY_SECONDS = 90; // Width of the "Live" window
-        private const int MAX_POINTS = 90000;      // 5 Hours Buffer (FIFO)
+        // --- ALARM VARIABLES ---
+        // These will be loaded from your TextBoxes instantly
+        private double limitGun;
+        private double limitLinac;
+        private double limitDipole;
+
+        // Blinking State (True/False toggle)
+        private bool isAlarmBlinkOn = false;
+
+        // Visual Plot Lines
+        private LineAnnotation lineGun, lineLinac, lineDipole;
+        // -----------------------
+
+        // Settings
+        private const double HISTORY_SECONDS = 90;
+        private const int MAX_POINTS = 90000;
         private DateTime lastPlotTime = DateTime.MinValue;
 
-        // 3. UI State Variables
+        // State
         private bool isAutoScroll = true;
-
-        // 4. Logging Variables
         private StreamWriter logWriter;
         private bool isLogging = false;
         private bool isProcessingTick = false;
@@ -45,44 +53,83 @@ namespace ReadPressure_Demo2._0
         {
             InitializeComponent();
 
-            // Link the View Button manually (safety check)
+            // Link Buttons manually for safety
             this.View_btn.Click += new EventHandler(this.View_btn_Click);
+            this.SetLim_btn.Click += new EventHandler(this.SetLim_btn_Click);
 
             RefreshComPorts();
             InitializePlot();
             UpdateViewButtonState();
 
+            // --- CRITICAL: READ YOUR TEXTBOX DEFAULTS (1e-8, 1e-6, etc.) ---
+            UpdateLimitsFromTextBoxes();
+            // ---------------------------------------------------------------
+
             // UI Clock
             DateTime_Timer.Interval = 1000;
             DateTime_Timer.Enabled = true;
 
-            // Default Polling Speed (Idle = 2Hz)
+            // Default Speed
             Trigger_Timer.Interval = 500;
 
             this.FormClosing += Form1_FormClosing;
         }
 
-        #region Initialization & Plot Setup
+        // --- HELPER: Read TextBoxes & Update Variables ---
+        private void UpdateLimitsFromTextBoxes()
+        {
+            try
+            {
+                // Parse the values from TextBoxes
+                limitGun = double.Parse(GunLim_txb.Text, NumberStyles.Any, CultureInfo.InvariantCulture);
+                limitLinac = double.Parse(LinLim_txb.Text, NumberStyles.Any, CultureInfo.InvariantCulture);
+                limitDipole = double.Parse(DipLim_txb.Text, NumberStyles.Any, CultureInfo.InvariantCulture);
+
+                // --- THE FIX: Update Y position, and FORCE TEXT TO NULL ---
+                if (lineGun != null)
+                {
+                    lineGun.Y = limitGun;
+                    lineGun.Text = null; // Forces label to disappear
+                }
+
+                if (lineLinac != null)
+                {
+                    lineLinac.Y = limitLinac;
+                    lineLinac.Text = null; // Forces label to disappear
+                }
+
+                if (lineDipole != null)
+                {
+                    lineDipole.Y = limitDipole;
+                    lineDipole.Text = null; // Forces label to disappear
+                }
+
+                if (plotModel != null) plotModel.InvalidatePlot(false);
+            }
+            catch
+            {
+                MessageBox.Show("Error reading limits! Check number format.");
+            }
+        }
+
+        #region Initialization & Plot
 
         private void InitializePlot()
         {
             plotModel = new PlotModel { Title = "Pressure vs Time" };
 
-            // Legend
+            // --- LEGEND ---
             plotModel.IsLegendVisible = true;
             plotModel.Legends.Add(new Legend
             {
-                LegendPosition = LegendPosition.TopRight,
+                LegendPosition = LegendPosition.BottomCenter,
                 LegendPlacement = LegendPlacement.Outside,
-                LegendOrientation = LegendOrientation.Vertical,
-                LegendBorderThickness = 1,
-                LegendBorder = OxyColors.Black,
-                LegendBackground = OxyColors.White,
-                LegendMargin = 10
+                LegendOrientation = LegendOrientation.Horizontal
             });
 
-            // Series Setup
+            // --- DATA SERIES (Solid Lines) ---
             string trackerFormat = "{0}\nTime: {2:HH:mm:ss}\nPressure: {4:0.00E+0} Torr";
+
             seriesGun = new LineSeries { Title = "RF Gun", Color = OxyColors.Blue, StrokeThickness = 2, TrackerFormatString = trackerFormat };
             seriesLinac = new LineSeries { Title = "Linac", Color = OxyColors.Red, StrokeThickness = 2, TrackerFormatString = trackerFormat };
             seriesDipole = new LineSeries { Title = "Dipole", Color = OxyColors.Green, StrokeThickness = 2, TrackerFormatString = trackerFormat };
@@ -91,76 +138,53 @@ namespace ReadPressure_Demo2._0
             plotModel.Series.Add(seriesLinac);
             plotModel.Series.Add(seriesDipole);
 
-            // X-Axis: Time
-            plotModel.Axes.Add(new DateTimeAxis
-            {
-                Position = AxisPosition.Bottom,
-                Title = "Time",
-                StringFormat = "HH:mm:ss",
-                MajorGridlineStyle = LineStyle.Solid,
-                IntervalType = DateTimeIntervalType.Seconds
-            });
+            // --- LEGEND ENTRIES FOR LIMITS (Dummy Series) ---
+            // These ensure "Dashed Line" appears in the Legend Box only
+            var legGun = new LineSeries { Title = "Gun Limit", Color = OxyColors.Blue, LineStyle = LineStyle.Dash, StrokeThickness = 2 };
+            legGun.Points.Add(new DataPoint(double.NaN, double.NaN));
+            plotModel.Series.Add(legGun);
 
-            // Y-Axis: Logarithmic (With Safety Padding)
+            var legLin = new LineSeries { Title = "Linac Limit", Color = OxyColors.Red, LineStyle = LineStyle.Dash, StrokeThickness = 2 };
+            legLin.Points.Add(new DataPoint(double.NaN, double.NaN));
+            plotModel.Series.Add(legLin);
+
+            var legDip = new LineSeries { Title = "Dipole Limit", Color = OxyColors.Green, LineStyle = LineStyle.Dash, StrokeThickness = 2 };
+            legDip.Points.Add(new DataPoint(double.NaN, double.NaN));
+            plotModel.Series.Add(legDip);
+
+            // --- ACTUAL LIMIT LINES (Annotations) ---
+            // Text is set to NULL to ensure NO LABEL on the chart
+            lineGun = new LineAnnotation { Type = LineAnnotationType.Horizontal, Y = limitGun, Color = OxyColors.Blue, LineStyle = LineStyle.Dash, StrokeThickness = 2, Text = null };
+            plotModel.Annotations.Add(lineGun);
+
+            lineLinac = new LineAnnotation { Type = LineAnnotationType.Horizontal, Y = limitLinac, Color = OxyColors.Red, LineStyle = LineStyle.Dash, StrokeThickness = 2, Text = null };
+            plotModel.Annotations.Add(lineLinac);
+
+            lineDipole = new LineAnnotation { Type = LineAnnotationType.Horizontal, Y = limitDipole, Color = OxyColors.Green, LineStyle = LineStyle.Dash, StrokeThickness = 2, Text = null };
+            plotModel.Annotations.Add(lineDipole);
+
+            // --- AXES ---
+            plotModel.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, StringFormat = "HH:mm:ss", Title = "Time" });
             plotModel.Axes.Add(new LogarithmicAxis
             {
                 Position = AxisPosition.Left,
                 Title = "Pressure (Torr)",
-                MajorGridlineStyle = LineStyle.Solid,
-                MinorGridlineStyle = LineStyle.Dot,
                 UseSuperExponentialFormat = true,
                 StringFormat = "0.0E+0",
-
-                // PADDING prevents line from sticking to edges
-                MinimumPadding = 0.1,
-                MaximumPadding = 0.1,
-
-                // DEFAULT VIEW: Helps find the line immediately
                 Minimum = 1e-10,
                 Maximum = 1e-5
             });
 
             PressurePlot.Model = plotModel;
             PressurePlot.Controller = new PlotController();
-
-            // --- MOUSE INTERACTIONS ---
-            // Right-Click -> History Mode
-            PressurePlot.MouseDown += (s, e) => {
-                if (e.Button == MouseButtons.Right)
-                {
-                    this.Invoke((MethodInvoker)delegate {
-                        isAutoScroll = false;
-                        UpdateViewButtonState();
-                    });
-                }
-            };
-
-            // Double-Click -> Live Mode & Reset Zoom
-            PressurePlot.MouseDoubleClick += (s, e) => {
-                this.Invoke((MethodInvoker)delegate {
-                    isAutoScroll = true;
-                    UpdateViewButtonState();
-                    plotModel.ResetAllAxes(); // Auto-Find the line!
-                    plotModel.InvalidatePlot(false);
-                });
-            };
         }
 
         private void RefreshComPorts()
         {
             ComPort_cbx.Items.Clear();
             string[] ports = SerialPort.GetPortNames();
-            if (ports.Length == 0)
-            {
-                ComPort_cbx.Items.Add("No COM ports found");
-                ComPort_cbx.Enabled = false;
-            }
-            else
-            {
-                ComPort_cbx.Items.AddRange(ports);
-                ComPort_cbx.Enabled = true;
-                ComPort_cbx.SelectedIndex = 0;
-            }
+            if (ports.Length == 0) { ComPort_cbx.Items.Add("No COM ports found"); ComPort_cbx.Enabled = false; }
+            else { ComPort_cbx.Items.AddRange(ports); ComPort_cbx.Enabled = true; ComPort_cbx.SelectedIndex = 0; }
         }
 
         private void UpdateDateTime()
@@ -180,118 +204,42 @@ namespace ReadPressure_Demo2._0
 
         #endregion
 
-        #region Connection Logic
+        #region Connection
 
         private void send_btn_Click(object sender, EventArgs e)
         {
-            // 1. If already connected, do nothing
             if (ticHelper != null && ticHelper.IsConnected) return;
-
-            string selectedPort = ComPort_cbx.SelectedItem as string;
-            if (string.IsNullOrEmpty(selectedPort) || selectedPort == "No COM ports found")
-            {
-                MessageBox.Show("Please select a valid COM port.");
-                return;
-            }
+            string port = ComPort_cbx.SelectedItem as string;
+            if (string.IsNullOrEmpty(port) || port.Contains("No COM")) return;
 
             try
             {
-                // 2. Connect to Hardware
-                ticHelper = new TICSerialHelper(selectedPort);
+                ticHelper = new TICSerialHelper(port);
                 if (ticHelper.Connect())
                 {
-                    // --- FIX: INSERT INVISIBLE POINTS TO CREATE A GAP ---
-                    // This tells OxyPlot to lift the pen and not connect the old data to the new data.
+                    // Gap Logic
                     double now = DateTimeAxis.ToDouble(DateTime.Now);
-
-                    // Add NaN (Not a Number) to break the line visual
                     seriesGun.Points.Add(new DataPoint(now, double.NaN));
                     seriesLinac.Points.Add(new DataPoint(now, double.NaN));
                     seriesDipole.Points.Add(new DataPoint(now, double.NaN));
-                    // ---------------------------------------------------
 
                     Trigger_Timer.Enabled = true;
-                    MessageBox.Show("Connected successfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Failed to connect.");
+                    MessageBox.Show("Connected.");
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Connection Error: {ex.Message}");
-            }
+            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
         }
 
         private void stop_btn_Click(object sender, EventArgs e)
         {
-            // 1. STOP TIMER (Prevent new data requests)
             Trigger_Timer.Enabled = false;
-
-            // 2. SAFE LOGGING SHUTDOWN (Auto-save if user forgot)
-            if (isLogging)
-            {
-                StopLogging(); // This closes the file stream safely
-                MessageBox.Show("Logging was active and has been saved automatically.");
-            }
-
-            // 3. DISCONNECT HARDWARE
-            if (ticHelper != null && ticHelper.IsConnected)
-            {
-                ticHelper.Disconnect();
-                MessageBox.Show("Monitoring Stopped & Disconnected.");
-            }
-            else
-            {
-                // Optional: If already disconnected, just visually confirm stop
-                // MessageBox.Show("Monitoring Stopped.");
-            }
+            if (isLogging) { StopLogging(); MessageBox.Show("Log Saved."); }
+            if (ticHelper != null) { ticHelper.Disconnect(); MessageBox.Show("Disconnected."); }
         }
 
         #endregion
 
-        #region Core Data Polling & Plotting
-
-        private async Task<double> ProcessGaugeAsync(string command, Label targetLabel)
-        {
-            string response = await Task.Run(() => ticHelper.SendCommand(command));
-
-            double pressureTorr = double.NaN;
-            bool isValid = false;
-            string displayString = "OFF";
-
-            if (!string.IsNullOrEmpty(response) && response.StartsWith("=V"))
-            {
-                try
-                {
-                    var parts = response.Split(' ');
-                    if (parts.Length > 1)
-                    {
-                        var values = parts[1].Split(';');
-                        // Parse Pressure (Pa -> Torr)
-                        if (values.Length > 0 && double.TryParse(values[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double pressurePa))
-                        {
-                            pressureTorr = pressurePa / 133.322;
-                            isValid = true;
-                        }
-                    }
-                }
-                catch { }
-            }
-
-            // Update Label
-            if (isValid)
-            {
-                string rawSci = pressureTorr.ToString("E2", CultureInfo.InvariantCulture);
-                string[] parts = rawSci.Split('E');
-                displayString = $"{parts[0]} x 10^{parts[1]}";
-                pressureTorr = double.Parse(rawSci, CultureInfo.InvariantCulture);
-            }
-
-            targetLabel.Text = displayString;
-            return pressureTorr;
-        }
+        #region Main Loop (Tick)
 
         private async void Trigger_Timer_Tick(object sender, EventArgs e)
         {
@@ -300,33 +248,27 @@ namespace ReadPressure_Demo2._0
 
             try
             {
-                if (ticHelper == null || !ticHelper.IsConnected)
-                {
-                    Trigger_Timer.Enabled = false;
-                    return;
-                }
+                if (ticHelper == null || !ticHelper.IsConnected) { Trigger_Timer.Enabled = false; return; }
 
-                // 1. ACQUIRE DATA (REAL HARDWARE)
+                // 1. Get Data
                 double valGun = await ProcessGaugeAsync("?V913", GunP_label);
                 double valLinac = await ProcessGaugeAsync("?V914", LinacP_label);
                 double valDipole = await ProcessGaugeAsync("?V915", DipoleP_label);
-
                 DateTime now = DateTime.Now;
 
-                // 2. LOG DATA (High Res: 5Hz when active)
+                // 2. Log
                 if (isLogging && logWriter != null)
                 {
                     await logWriter.WriteLineAsync($"{now:yyyy-MM-dd},{now:HH:mm:ss.fff},{valGun:E4},{valLinac:E4},{valDipole:E4}");
                 }
 
-                // 3. PLOT DATA (Throttled: 2Hz)
+                // 3. Plot (2Hz limit)
                 if ((now - lastPlotTime).TotalMilliseconds >= 500)
                 {
-                    double xValue = DateTimeAxis.ToDouble(now);
-
-                    AddPointToSeries(seriesGun, xValue, valGun);
-                    AddPointToSeries(seriesLinac, xValue, valLinac);
-                    AddPointToSeries(seriesDipole, xValue, valDipole);
+                    double xVal = DateTimeAxis.ToDouble(now);
+                    AddPointToSeries(seriesGun, xVal, valGun);
+                    AddPointToSeries(seriesLinac, xVal, valLinac);
+                    AddPointToSeries(seriesDipole, xVal, valDipole);
 
                     if (isAutoScroll && plotModel.Axes.Count > 0)
                     {
@@ -334,35 +276,86 @@ namespace ReadPressure_Demo2._0
                         xAxis.Minimum = DateTimeAxis.ToDouble(now.AddSeconds(-HISTORY_SECONDS));
                         xAxis.Maximum = DateTimeAxis.ToDouble(now.AddSeconds(2));
                     }
-
                     plotModel.InvalidatePlot(false);
                     lastPlotTime = now;
                 }
+
+                // 4. ALARM BLINKING LOGIC
+                isAlarmBlinkOn = !isAlarmBlinkOn; // Toggle Tick
+
+                CheckAlarm(GunP_label, valGun, limitGun);
+                CheckAlarm(LinacP_label, valLinac, limitLinac);
+                CheckAlarm(DipoleP_label, valDipole, limitDipole);
             }
-            catch (Exception ex)
+            catch { }
+            finally { isProcessingTick = false; }
+        }
+
+        private void CheckAlarm(Label lbl, double val, double limit)
+        {
+            if (val > limit)
             {
-                Console.WriteLine($"Polling Error: {ex.Message}");
+                // BLINKING: Red Background <-> Control Background
+                if (isAlarmBlinkOn)
+                {
+                    lbl.BackColor = Color.Red;
+                    lbl.ForeColor = Color.White;
+                }
+                else
+                {
+                    lbl.BackColor = SystemColors.Control;
+                    lbl.ForeColor = Color.Red; // Keep text red during 'off' phase
+                }
             }
-            finally
+            else
             {
-                isProcessingTick = false;
+                // NORMAL
+                lbl.BackColor = SystemColors.Control;
+                lbl.ForeColor = Color.Black;
             }
         }
 
-        private void AddPointToSeries(LineSeries series, double x, double y)
+        private async Task<double> ProcessGaugeAsync(string cmd, Label lbl)
+        {
+            string resp = await Task.Run(() => ticHelper.SendCommand(cmd));
+            double pTorr = double.NaN;
+            bool valid = false;
+
+            if (!string.IsNullOrEmpty(resp) && resp.StartsWith("=V"))
+            {
+                try
+                {
+                    var parts = resp.Split(';')[0].Split(' ');
+                    if (parts.Length > 1 && double.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double pa))
+                    {
+                        pTorr = pa / 133.322;
+                        valid = true;
+                    }
+                }
+                catch { }
+            }
+
+            if (valid)
+            {
+                string sci = pTorr.ToString("E2", CultureInfo.InvariantCulture);
+                var sParts = sci.Split('E');
+                lbl.Text = $"{sParts[0]} x 10^{sParts[1]}";
+            }
+            else lbl.Text = "OFF";
+
+            return pTorr;
+        }
+
+        private void AddPointToSeries(LineSeries s, double x, double y)
         {
             if (y <= 0 || double.IsNaN(y)) y = double.NaN;
-            series.Points.Add(new DataPoint(x, y));
-
-            if (series.Points.Count > MAX_POINTS)
-            {
-                series.Points.RemoveAt(0);
-            }
+            s.Points.Add(new DataPoint(x, y));
+            if (s.Points.Count > MAX_POINTS) s.Points.RemoveAt(0);
         }
 
         #endregion
 
-        #region User Controls
+        #region Buttons (View, Set, Log)
 
         private void View_btn_Click(object sender, EventArgs e)
         {
@@ -372,79 +365,42 @@ namespace ReadPressure_Demo2._0
 
         private void UpdateViewButtonState()
         {
-            if (isAutoScroll)
-            {
-                View_btn.Text = "Live";
-                View_btn.BackColor = Color.LightGreen;
-            }
-            else
-            {
-                View_btn.Text = "History";
-                View_btn.BackColor = Color.Gold;
-            }
+            View_btn.Text = isAutoScroll ? "Live" : "History";
+            View_btn.BackColor = isAutoScroll ? Color.LightGreen : Color.Gold;
+        }
+
+        private void SetLim_btn_Click(object sender, EventArgs e)
+        {
+            UpdateLimitsFromTextBoxes();
+            MessageBox.Show("Alarm limits updated!");
         }
 
         private void logging_btn_Click(object sender, EventArgs e)
         {
             if (!isLogging)
             {
-                // --- START LOGGING ---
                 try
                 {
-                    // 1. Define Paths
-                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    string folderPath = Path.Combine(desktopPath, "VacuumLogs");
+                    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "VacuumLogs");
+                    Directory.CreateDirectory(path);
+                    string file = Path.Combine(path, $"VacuumData_{DateTime.Now:yyyy-MM-dd}.csv");
+                    bool newFile = !File.Exists(file) || new FileInfo(file).Length == 0;
 
-                    // 2. CHECK FOLDER: Create it if it doesn't exist
-                    if (!Directory.Exists(folderPath))
-                    {
-                        Directory.CreateDirectory(folderPath);
-                    }
-
-                    // 3. CHECK FILE: Use TODAY'S DATE for the name (No hours/minutes)
-                    // This ensures we always find the same file for the whole day.
-                    string fileName = Path.Combine(folderPath, $"VacuumData_{DateTime.Now:yyyy-MM-dd}.csv");
-
-                    // 4. Check if this is a fresh start (File missing or empty)
-                    bool isNewFile = !File.Exists(fileName) || new FileInfo(fileName).Length == 0;
-
-                    // 5. OPEN FILE: The 'true' parameter means APPEND mode
-                    logWriter = new StreamWriter(fileName, true, Encoding.UTF8);
-                    logWriter.AutoFlush = true; // Force save immediately
-
-                    // 6. HEADER LOGIC:
-                    if (isNewFile)
-                    {
-                        // Only write the header if the file is brand new
-                        logWriter.WriteLine("Date,Time,RF Gun (Torr),Linac (Torr),Dipole (Torr)");
-                    }
-                    else
-                    {
-                        // If appending, add a separator so you know where you resumed
-                        logWriter.WriteLine("--- Resumed Logging ---");
-                    }
+                    logWriter = new StreamWriter(file, true, Encoding.UTF8) { AutoFlush = true };
+                    if (newFile) logWriter.WriteLine("Date,Time,Gun,Linac,Dipole");
+                    else logWriter.WriteLine("--- Resumed ---");
 
                     isLogging = true;
-
-                    // Speed up polling to 5Hz
                     Trigger_Timer.Interval = 200;
-
                     Logging_btn.Text = "Stop Logging";
                     Logging_btn.BackColor = Color.LightGreen;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Log Start Error: " + ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
             else
             {
-                // --- STOP LOGGING ---
                 StopLogging();
-
-                // Slow down polling to 2Hz
                 Trigger_Timer.Interval = 500;
-
                 Logging_btn.Text = "Start Logging";
                 Logging_btn.BackColor = SystemColors.Control;
             }
@@ -453,19 +409,8 @@ namespace ReadPressure_Demo2._0
         private void StopLogging()
         {
             isLogging = false;
-            try
-            {
-                if (logWriter != null)
-                {
-                    logWriter.Close();
-                    logWriter.Dispose();
-                    logWriter = null;
-                }
-            }
-            catch { }
+            if (logWriter != null) { logWriter.Close(); logWriter = null; }
         }
-
-        #endregion
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -473,5 +418,7 @@ namespace ReadPressure_Demo2._0
             StopLogging();
             if (ticHelper != null) try { ticHelper.Disconnect(); } catch { }
         }
+
+        #endregion
     }
 }
