@@ -69,8 +69,8 @@ namespace ReadPressure_Demo2._0
             // ComPort_cbx
             // 
             this.ComPort_cbx.FormattingEnabled = true;
-            this.ComPort_cbx.Location = new System.Drawing.Point(76, 89);
-            this.ComPort_cbx.Margin = new System.Windows.Forms.Padding(2);
+            this.ComPort_cbx.Location = new System.Drawing.Point(101, 110);
+            this.ComPort_cbx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ComPort_cbx.Name = "ComPort_cbx";
             this.ComPort_cbx.Size = new System.Drawing.Size(92, 21);
             this.ComPort_cbx.TabIndex = 0;
@@ -93,8 +93,8 @@ namespace ReadPressure_Demo2._0
             // 
             // send_btn
             // 
-            this.send_btn.Location = new System.Drawing.Point(53, 202);
-            this.send_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.send_btn.Location = new System.Drawing.Point(71, 249);
+            this.send_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.send_btn.Name = "send_btn";
             this.send_btn.Size = new System.Drawing.Size(56, 19);
             this.send_btn.TabIndex = 2;
@@ -104,8 +104,8 @@ namespace ReadPressure_Demo2._0
             // 
             // stop_btn
             // 
-            this.stop_btn.Location = new System.Drawing.Point(140, 202);
-            this.stop_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.stop_btn.Location = new System.Drawing.Point(187, 249);
+            this.stop_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stop_btn.Name = "stop_btn";
             this.stop_btn.Size = new System.Drawing.Size(56, 19);
             this.stop_btn.TabIndex = 3;
@@ -127,11 +127,11 @@ namespace ReadPressure_Demo2._0
             // 
             this.PressurePlot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.PressurePlot.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PressurePlot.Location = new System.Drawing.Point(276, 0);
-            this.PressurePlot.Margin = new System.Windows.Forms.Padding(2);
+            this.PressurePlot.Location = new System.Drawing.Point(367, 0);
+            this.PressurePlot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PressurePlot.Name = "PressurePlot";
             this.PressurePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.PressurePlot.Size = new System.Drawing.Size(774, 448);
+            this.PressurePlot.Size = new System.Drawing.Size(892, 551);
             this.PressurePlot.TabIndex = 5;
             this.PressurePlot.Text = "plotView1";
             this.PressurePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -168,11 +168,11 @@ namespace ReadPressure_Demo2._0
             this.groupBox1.Controls.Add(this.stop_btn);
             this.groupBox1.Controls.Add(this.GunP_label);
             this.groupBox1.Controls.Add(this.send_btn);
-            this.groupBox1.Location = new System.Drawing.Point(9, 19);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(12, 23);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(262, 418);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(349, 514);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Control Box";
@@ -180,96 +180,106 @@ namespace ReadPressure_Demo2._0
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(168, 389);
+            this.label8.Location = new System.Drawing.Point(224, 479);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.Size = new System.Drawing.Size(35, 16);
             this.label8.TabIndex = 25;
             this.label8.Text = "Torr.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(169, 348);
+            this.label7.Location = new System.Drawing.Point(225, 428);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.Size = new System.Drawing.Size(35, 16);
             this.label7.TabIndex = 24;
             this.label7.Text = "Torr.";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(169, 308);
+            this.label6.Location = new System.Drawing.Point(225, 379);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.Size = new System.Drawing.Size(35, 16);
             this.label6.TabIndex = 23;
             this.label6.Text = "Torr.";
             // 
             // SetLim_btn
             // 
-            this.SetLim_btn.Location = new System.Drawing.Point(203, 319);
+            this.SetLim_btn.Location = new System.Drawing.Point(271, 393);
+            this.SetLim_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SetLim_btn.Name = "SetLim_btn";
-            this.SetLim_btn.Size = new System.Drawing.Size(50, 70);
+            this.SetLim_btn.Size = new System.Drawing.Size(67, 86);
             this.SetLim_btn.TabIndex = 22;
             this.SetLim_btn.Text = "Set";
             this.SetLim_btn.UseVisualStyleBackColor = true;
             // 
             // DipLim_txb
             // 
-            this.DipLim_txb.Location = new System.Drawing.Point(91, 382);
+            this.DipLim_txb.Location = new System.Drawing.Point(121, 470);
+            this.DipLim_txb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DipLim_txb.Name = "DipLim_txb";
-            this.DipLim_txb.Size = new System.Drawing.Size(70, 20);
+            this.DipLim_txb.Size = new System.Drawing.Size(92, 22);
             this.DipLim_txb.TabIndex = 21;
             this.DipLim_txb.Text = "1e-6";
             // 
             // LinLim_txb
             // 
-            this.LinLim_txb.Location = new System.Drawing.Point(91, 341);
+            this.LinLim_txb.Location = new System.Drawing.Point(121, 420);
+            this.LinLim_txb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LinLim_txb.Name = "LinLim_txb";
-            this.LinLim_txb.Size = new System.Drawing.Size(71, 20);
+            this.LinLim_txb.Size = new System.Drawing.Size(93, 22);
             this.LinLim_txb.TabIndex = 20;
             this.LinLim_txb.Text = "1e-6";
             // 
             // GunLim_txb
             // 
-            this.GunLim_txb.Location = new System.Drawing.Point(91, 301);
+            this.GunLim_txb.Location = new System.Drawing.Point(121, 370);
+            this.GunLim_txb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GunLim_txb.Name = "GunLim_txb";
-            this.GunLim_txb.Size = new System.Drawing.Size(71, 20);
+            this.GunLim_txb.Size = new System.Drawing.Size(93, 22);
             this.GunLim_txb.TabIndex = 19;
             this.GunLim_txb.Text = "1e-8";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 385);
+            this.label5.Location = new System.Drawing.Point(28, 474);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.Size = new System.Drawing.Size(80, 16);
             this.label5.TabIndex = 18;
             this.label5.Text = "Dipole Limit:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 348);
+            this.label4.Location = new System.Drawing.Point(28, 428);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(72, 16);
             this.label4.TabIndex = 17;
             this.label4.Text = "Linac Limit:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 304);
+            this.label2.Location = new System.Drawing.Point(36, 374);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.Size = new System.Drawing.Size(64, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Gun Limit:";
             // 
             // View_btn
             // 
-            this.View_btn.Location = new System.Drawing.Point(140, 261);
-            this.View_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.View_btn.Location = new System.Drawing.Point(187, 321);
+            this.View_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.View_btn.Name = "View_btn";
-            this.View_btn.Size = new System.Drawing.Size(56, 19);
+            this.View_btn.Size = new System.Drawing.Size(75, 23);
             this.View_btn.TabIndex = 15;
             this.View_btn.Text = "Live";
             this.View_btn.UseVisualStyleBackColor = true;
@@ -288,8 +298,7 @@ namespace ReadPressure_Demo2._0
             // LinacP_label
             // 
             this.LinacP_label.AutoSize = true;
-            this.LinacP_label.Location = new System.Drawing.Point(98, 183);
-            this.LinacP_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LinacP_label.Location = new System.Drawing.Point(131, 225);
             this.LinacP_label.Name = "LinacP_label";
             this.LinacP_label.Size = new System.Drawing.Size(28, 13);
             this.LinacP_label.TabIndex = 13;
@@ -318,10 +327,10 @@ namespace ReadPressure_Demo2._0
             // 
             // Logging_btn
             // 
-            this.Logging_btn.Location = new System.Drawing.Point(20, 254);
-            this.Logging_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.Logging_btn.Location = new System.Drawing.Point(27, 313);
+            this.Logging_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Logging_btn.Name = "Logging_btn";
-            this.Logging_btn.Size = new System.Drawing.Size(100, 25);
+            this.Logging_btn.Size = new System.Drawing.Size(133, 31);
             this.Logging_btn.TabIndex = 7;
             this.Logging_btn.Text = "Start Logging";
             this.Logging_btn.UseVisualStyleBackColor = true;
@@ -352,8 +361,7 @@ namespace ReadPressure_Demo2._0
             // 
             this.Date_label.AutoSize = true;
             this.Date_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.Date_label.Location = new System.Drawing.Point(71, 15);
-            this.Date_label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Date_label.Location = new System.Drawing.Point(95, 18);
             this.Date_label.Name = "Date_label";
             this.Date_label.Size = new System.Drawing.Size(90, 26);
             this.Date_label.TabIndex = 8;
@@ -371,10 +379,10 @@ namespace ReadPressure_Demo2._0
             // 
             // reCom_btn
             // 
-            this.reCom_btn.Location = new System.Drawing.Point(82, 122);
-            this.reCom_btn.Margin = new System.Windows.Forms.Padding(2);
+            this.reCom_btn.Location = new System.Drawing.Point(109, 150);
+            this.reCom_btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reCom_btn.Name = "reCom_btn";
-            this.reCom_btn.Size = new System.Drawing.Size(80, 24);
+            this.reCom_btn.Size = new System.Drawing.Size(107, 30);
             this.reCom_btn.TabIndex = 6;
             this.reCom_btn.Text = "Refresh Port";
             this.reCom_btn.UseVisualStyleBackColor = true;
@@ -400,12 +408,12 @@ namespace ReadPressure_Demo2._0
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1050, 448);
+            this.ClientSize = new System.Drawing.Size(1259, 551);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.PressurePlot);
             this.ForeColor = System.Drawing.SystemColors.Desktop;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Vacuum Pressure Logger";
             this.groupBox1.ResumeLayout(false);
