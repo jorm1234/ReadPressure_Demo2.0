@@ -83,7 +83,7 @@ namespace ReadPressure_Demo2._0
             // GunP_label
             // 
             this.GunP_label.AutoSize = true;
-            this.GunP_label.Location = new System.Drawing.Point(37, 185);
+            this.GunP_label.Location = new System.Drawing.Point(25, 224);
             this.GunP_label.Name = "GunP_label";
             this.GunP_label.Size = new System.Drawing.Size(31, 16);
             this.GunP_label.TabIndex = 1;
@@ -208,7 +208,7 @@ namespace ReadPressure_Demo2._0
             // SetLim_btn
             // 
             this.SetLim_btn.Location = new System.Drawing.Point(271, 393);
-            this.SetLim_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SetLim_btn.Margin = new System.Windows.Forms.Padding(4);
             this.SetLim_btn.Name = "SetLim_btn";
             this.SetLim_btn.Size = new System.Drawing.Size(67, 86);
             this.SetLim_btn.TabIndex = 22;
@@ -218,7 +218,7 @@ namespace ReadPressure_Demo2._0
             // DipLim_txb
             // 
             this.DipLim_txb.Location = new System.Drawing.Point(121, 470);
-            this.DipLim_txb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DipLim_txb.Margin = new System.Windows.Forms.Padding(4);
             this.DipLim_txb.Name = "DipLim_txb";
             this.DipLim_txb.Size = new System.Drawing.Size(92, 22);
             this.DipLim_txb.TabIndex = 21;
@@ -227,7 +227,7 @@ namespace ReadPressure_Demo2._0
             // LinLim_txb
             // 
             this.LinLim_txb.Location = new System.Drawing.Point(121, 420);
-            this.LinLim_txb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LinLim_txb.Margin = new System.Windows.Forms.Padding(4);
             this.LinLim_txb.Name = "LinLim_txb";
             this.LinLim_txb.Size = new System.Drawing.Size(93, 22);
             this.LinLim_txb.TabIndex = 20;
@@ -236,7 +236,7 @@ namespace ReadPressure_Demo2._0
             // GunLim_txb
             // 
             this.GunLim_txb.Location = new System.Drawing.Point(121, 370);
-            this.GunLim_txb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.GunLim_txb.Margin = new System.Windows.Forms.Padding(4);
             this.GunLim_txb.Name = "GunLim_txb";
             this.GunLim_txb.Size = new System.Drawing.Size(93, 22);
             this.GunLim_txb.TabIndex = 19;
@@ -285,7 +285,7 @@ namespace ReadPressure_Demo2._0
             // DipoleP_label
             // 
             this.DipoleP_label.AutoSize = true;
-            this.DipoleP_label.Location = new System.Drawing.Point(264, 185);
+            this.DipoleP_label.Location = new System.Drawing.Point(252, 224);
             this.DipoleP_label.Name = "DipoleP_label";
             this.DipoleP_label.Size = new System.Drawing.Size(31, 16);
             this.DipoleP_label.TabIndex = 14;
@@ -305,7 +305,7 @@ namespace ReadPressure_Demo2._0
             // Dipole_label
             // 
             this.Dipole_label.AutoSize = true;
-            this.Dipole_label.Location = new System.Drawing.Point(259, 158);
+            this.Dipole_label.Location = new System.Drawing.Point(247, 197);
             this.Dipole_label.Name = "Dipole_label";
             this.Dipole_label.Size = new System.Drawing.Size(89, 16);
             this.Dipole_label.TabIndex = 12;
@@ -314,7 +314,7 @@ namespace ReadPressure_Demo2._0
             // Linac_label
             // 
             this.Linac_label.AutoSize = true;
-            this.Linac_label.Location = new System.Drawing.Point(143, 158);
+            this.Linac_label.Location = new System.Drawing.Point(131, 197);
             this.Linac_label.Name = "Linac_label";
             this.Linac_label.Size = new System.Drawing.Size(81, 16);
             this.Linac_label.TabIndex = 11;
@@ -383,7 +383,7 @@ namespace ReadPressure_Demo2._0
             // Gun_label
             // 
             this.Gun_label.AutoSize = true;
-            this.Gun_label.Location = new System.Drawing.Point(36, 158);
+            this.Gun_label.Location = new System.Drawing.Point(24, 197);
             this.Gun_label.Name = "Gun_label";
             this.Gun_label.Size = new System.Drawing.Size(94, 16);
             this.Gun_label.TabIndex = 5;
